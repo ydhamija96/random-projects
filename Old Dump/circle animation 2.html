@@ -1,0 +1,180 @@
+<head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<div class="black_circle"></div>
+<div class="text">Some text goes here.</div>
+<div class="clickable_black_circle"></div>
+<div class="instructions">Click Me!</div>
+
+
+<style>
+	.instructions{
+		display:none;
+		position:absolute;
+		top:50%;
+		left:50%;
+		text-align:center;
+		width:300px;
+		height:25px;
+		margin-left:-150px;
+		margin-top:20px;
+		font-size:25px;
+		opacity:0;
+	}
+        .clickable_black_circle, .black_circle{
+                width:25px;
+                height:25px;
+                -webkit-border-radius: 1000px;
+                -moz-border-radius: 1000px;
+                border-radius: 1000px;
+                background:black;
+                position:absolute;
+                left:50%;
+                top:50%;
+                margin-left:-12px;
+                margin-top:-12px;
+                cursor:pointer;
+        }
+        .black_circle{
+                display:none;
+                cursor:auto;
+                z-index:1;
+                background:black;
+        }
+        .text{
+        	display:none;
+        	position:absolute;
+        	left:50%;
+        	top:50%;
+        	text-align:center;
+        	width:500px;
+        	margin-left:-250px;
+        	height:30px;
+        	margin-top:-15px;
+        	opacity:0;
+                z-index:2;
+                font-size:30px;
+        }
+</style>
+
+
+<script>
+	var timer = 0;
+        $( window ).resize(function() {
+                location.reload();
+        });
+        var colors = ["#CC6699","#3F5D7D","#279B61","#008AB8","#993333","#A3E496","#95CAE4","#CC3333","#FFCC33","#FFFF7A"];
+        function pulse(item){
+                window.pulseinterval = setInterval(function(){
+                        for(var i=0; i<2; i++){
+                                $(item).animate({
+                                        left: "+=5",
+                                        height: "-=10",
+                                        width: "-=10",
+                                        top: "+=5"
+                                }, 100);
+                                $(item).animate({
+                                        left: "-=5",
+                                        height: "+=10",
+                                        width: "+=10",
+                                        top: "-=5"
+                                }, 200);
+                        }
+		        if(timer>=5){
+		        	$(".instructions").css({display:"block"});
+		        	$(".instructions").animate({opacity:"0.75"},1000);
+		        }
+                }, 3000);
+        }
+        function stop_pulse(){
+                clearInterval(pulseinterval);
+        }
+        function random_generator(minimum, maximum){
+                return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+        }
+        function make_the_circle(circle, number){
+                var minimum_size = 100;
+                var maximum_size = 300;
+                var width = random_generator(minimum_size, maximum_size);
+                var height = width;
+                var minimum_left = -1 * width;
+                var maximum_left = 0;
+                var minimum_top = -1 * height;
+                var maximum_top = 0;
+                var left = random_generator(minimum_left, maximum_left);
+                var top = random_generator(minimum_top, maximum_top);
+                var color = colors[random_generator(0,(colors.length)-1)];
+                $(circle).css({
+                        "position":"absolute",
+                        "left":"50%",
+                        "top":"50%",
+                        "background":color,
+                        "-webkit-border-radius": "1000px",
+                        "-moz-border-radius": "1000px",
+                        "border-radius": "1000px",
+                        "opacity":"0.6"
+                });
+                $(circle).animate({
+                        left: "+="+left,
+                        top: "+="+top,
+                        height: height,
+                        width: width
+                }, 1000);
+                if(number<25){
+                        $(circle).animate({
+                                left: "50%",
+                                top: "50%",
+                                height: "0",
+                                width: "0"
+                        }, 500);
+                }
+                else{
+                        $(circle).animate({
+                                left: "50%",
+                                top: "50%",
+                                height: "0",
+                                width: "0",
+                        }, 5000);
+                }
+        }
+        function start_animation(){
+                var delay = 0;
+                var a = 0;
+                for(var i=0; i<30; i++){
+                        $('body').append("<div class='color_circle number" + i + "'></div>");
+                        setTimeout(function(){
+                                make_the_circle(".number"+a, a); 
+                                a=a+1;
+                        }, delay);
+                        delay = delay+(random_generator(100,700));
+                }
+        }
+        pulse(".clickable_black_circle");
+        $(".clickable_black_circle").click(function(){
+                stop_pulse();
+                $(this).css({display: "none"});
+                $(".black_circle").css({display: "block"});
+                $(".black_circle").animate({opacity: "0"}, 1000);
+                $(".text").css({display: "block"});
+                $(".text").animate({opacity: "0.75"}, 4000);
+                start_animation();
+                setTimeout(function(){
+                	$(".text").animate({opacity:"0"}, 2000);
+                }, 16000);
+                setTimeout(function(){
+                	$(".black_circle").animate({opacity: "1"}, 1000);
+                },17000);
+                setTimeout(function(){
+                        $(".black_circle").css({display: "none"});
+                        $(".text").css({display: "none"});
+                        $(".clickable_black_circle").css({display: "block"});
+                        timer = 0;
+                        pulse(".clickable_black_circle");
+                }, 18000);
+        	$(".instructions").animate({opacity:"0"},1000);
+        	setTimeout(function(){$(".instructions").css({display:"none"});}, 1100);
+        });
+        setInterval(function(){
+        	timer = timer+1;
+        }, 1000);
+</script>

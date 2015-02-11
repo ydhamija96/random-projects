@@ -1,0 +1,185 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<div class="wrapper">	
+	<div class="box">
+		<div class="minibox 1"></div>
+		<div class="minibox 2"></div>
+		<div class="minibox 3"></div>
+		<div class="minibox 4"></div>
+		<div class="minibox 5"></div>
+		<div class="minibox 6"></div>
+		<div class="minibox 7"></div>
+		<div class="minibox 8"></div>
+		<div class="minibox 9"></div>
+		<div class="minibox 10"></div>
+		<div class="minibox 11"></div>
+		<div class="minibox 12"></div>
+		<div class="minibox 13"></div>
+		<div class="minibox 14"></div>
+		<div class="minibox 15"></div>
+		<div class="minibox 16"></div>
+		<div class="minibox 17"></div>
+		<div class="minibox 18"></div>
+		<div class="minibox 19"></div>
+		<div class="minibox 20"></div>
+		<div class="minibox 21"></div>
+		<div class="minibox 22"></div>
+		<div class="minibox 23"></div>
+		<div class="minibox 24"></div>
+		<div class="minibox 25"></div>
+		<div class="minibox 26"></div>
+		<div class="minibox 27"></div>
+		<div class="minibox 28"></div>
+		<div class="minibox 29"></div>
+		<div class="minibox 30"></div>
+		<div class="minibox 31"></div>
+		<div class="minibox 32"></div>
+		<div class="minibox 33"></div>
+		<div class="minibox 34"></div>
+		<div class="minibox 35"></div>
+		<div class="minibox 36"></div>
+		<div class="minibox 37"></div>
+		<div class="minibox 38"></div>
+		<div class="minibox 39"></div>
+		<div class="minibox 40"></div>
+		<div class="minibox 41"></div>
+		<div class="minibox 42"></div>
+		<div class="minibox 43"></div>
+		<div class="minibox 44"></div>
+		<div class="minibox 45"></div>
+		<div class="minibox 46"></div>
+		<div class="minibox 47"></div>
+		<div class="minibox 48"></div>
+		<div class="minibox 49"></div>
+		<div class="minibox 50"></div>
+		<div class="minibox 51"></div>
+		<div class="minibox 52"></div>
+		<div class="minibox 53"></div>
+		<div class="minibox 54"></div>
+		<div class="minibox 55"></div>
+		<div class="minibox 56"></div>
+		<div class="minibox 57"></div>
+		<div class="minibox 58"></div>
+		<div class="minibox 59"></div>
+		<div class="minibox 60"></div>
+		<div class="minibox 61"></div>
+		<div class="minibox 62"></div>
+		<div class="minibox 63"></div>
+		<div class="minibox 64"></div>
+		<div class="minibox 65"></div>
+		<div class="minibox 66"></div>
+		<div class="minibox 67"></div>
+		<div class="minibox 68"></div>
+		<div class="minibox 69"></div>
+		<div class="minibox 70"></div>
+		<div class="minibox 71"></div>
+		<div class="minibox 72"></div>
+		<div class="minibox 73"></div>
+		<div class="minibox 74"></div>
+		<div class="minibox 75"></div>
+		<div class="minibox 76"></div>
+		<div class="minibox 77"></div>
+		<div class="minibox 78"></div>
+		<div class="minibox 79"></div>
+		<div class="minibox 80"></div>
+		<div class="minibox 81"></div>
+		<div class="minibox 82"></div>
+		<div class="minibox 83"></div>
+		<div class="minibox 84"></div>
+		<div class="minibox 85"></div>
+		<div class="minibox 86"></div>
+		<div class="minibox 87"></div>
+		<div class="minibox 88"></div>
+		<div class="minibox 89"></div>
+		<div class="minibox 90"></div>
+		<div class="minibox 91"></div>
+		<div class="minibox 92"></div>
+		<div class="minibox 93"></div>
+		<div class="minibox 94"></div>
+		<div class="minibox 95"></div>
+		<div class="minibox 96"></div>
+		<div class="minibox 97"></div>
+		<div class="minibox 98"></div>
+		<div class="minibox 99"></div>
+	</div>
+</div>
+<style>
+	body{
+		background:black;
+	}
+	.box{
+		position:fixed;
+		height:30px;
+		width:30px;
+		background:red;
+		bottom:0;
+		left:50%;
+		-webkit-border-radius: 500px;
+		-moz-border-radius: 500px;
+		border-radius: 500px;
+	}
+	.minibox{
+		margin-left:10px;
+		margin-top:10px;
+		position:fixed;
+		background:pink;
+		height:10px;
+		width:10px;
+		left:50%;
+		top:50%;
+		opacity:0;
+		-webkit-border-radius: 500px;
+		-moz-border-radius: 500px;
+		border-radius: 500px;
+	}
+</style>
+<script>
+	var colornum = new Array();
+	colornum[0] = 1;
+	var directionleft = new Array();
+	directionleft[0] = 1;
+	var directionright = new Array();
+	directionright[0] = 1;
+	var neg = new Array();
+	neg[0] = 1;
+	$(".box").animate({top: "50%"});
+	window.setTimeout('$(".box").css("background", "black");', 1000);
+	$(".minibox").delay(500).animate({opacity: "1"});
+	for(var i=1; i<100; i++){
+		colornum[i] = Math.floor((Math.random()*10)+1);
+		directionleft[i] = ((Math.random())/1)*100;
+		directionright[i] = ((Math.random())/1)*100;
+		if(directionleft[i] > 30 && directionleft[i] < 70 && directionright[i] > 30 && directionright[i] < 70){
+			if(directionleft[i] < 50){
+				directionleft[i] = directionleft[i]-30;
+			}
+			else{
+				directionleft[i] = directionleft[i]+30;
+			}
+			if(directionright[i] < 50){
+				directionleft[i] = directionleft[i]-30;
+			}
+			else{
+				directionleft[i] = directionleft[i]+30;
+			}
+		}
+		if(directionleft[i] > 96){
+			directionleft[i] = 96;
+		}
+		if(directionright[i] > 96){
+			directionright[i] = 96;
+		}
+		if(directionleft[i] < 3){
+			directionleft[i] = 3;
+		}
+		if(directionright[i] < 3){
+			directionright[i] = 3;
+		}
+		$("."+i).css("background", "red");
+		$("."+i).animate({left: directionleft[i]+"%", top: directionright[i]+"%"});
+	}
+	$(".7").css("background", "blue");
+	$(".7").click(function(){
+		alert("YOU WIN");
+	});
+	window.setTimeout("location.reload();", 2500);
+</script>

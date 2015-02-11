@@ -1,0 +1,213 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<div class="techdimelogo">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="center"></div>
+	<div class="content">
+		<h1>
+			<img src="http://blog.techdime.com/wp-content/themes/modern-multipurpose/images/logo.png"> 
+			TechDime
+		</h1>
+	</div>
+</div>
+<style>
+	body{
+		background:black;
+	}
+	.techdimelogo{
+		position:relative;		/*Can be absolute or relative*/
+		overflow:hidden;
+		height:150px;
+		width:150px;
+		margin:auto;
+		margin-top:150px;
+		background:transparent;
+		transition: .5s all;
+		-webkit-transition: .5s all;
+		-o-transition: .5s all;
+		-moz-transition: .5s all;
+	}
+	.techdimelogo .tl{
+		position:absolute;
+		border-left:25px solid white;
+		border-top:25px solid white;
+		height:35px;
+		width:35px;
+		transition: .5s all;
+		-webkit-transition: .5s all;
+		-o-transition: .5s all;
+		-moz-transition: .5s all;
+	}
+	.techdimelogo .tr{
+		position:absolute;
+		border-right:25px solid white;
+		border-top:25px solid white;
+		height:35px;
+		width:35px;
+		left:90px;
+		transition: .5s all;
+		-webkit-transition: .5s all;
+		-o-transition: .5s all;
+		-moz-transition: .5s all;
+	}
+	.techdimelogo .br{
+		position:absolute;
+		border-right:25px solid white;
+		border-bottom:25px solid white;
+		height:35px;
+		width:35px;
+		top:90px;
+		left:90px;
+		transition: .5s all;
+		-webkit-transition: .5s all;
+		-o-transition: .5s all;
+		-moz-transition: .5s all;
+	}
+	.techdimelogo .bl{
+		position:absolute;
+		border-left:25px solid white;
+		border-bottom:25px solid white;
+		height:35px;
+		width:35px;
+		top:90px;
+		transition: .5s all;
+		-webkit-transition: .5s all;
+		-o-transition: .5s all;
+		-moz-transition: .5s all;
+	}
+	.techdimelogo .center{
+		position:absolute;
+		background:red;
+		height:40px;
+		width:40px;
+		top:55px;
+		left:55px;
+		text-indent:90px;
+		transition: .5s all;
+		-webkit-transition: .5s all;
+		-o-transition: .5s all;
+		-moz-transition: .5s all;
+	}
+	.techdimelogo .content{
+		position:absolute;
+		color:white;
+		top:25px;
+		left:25px;
+		height:250px;
+		width:250px;
+		opacity:0;
+		display:none;
+		line-height:250px;
+		//text-align:center;
+		transition: .5s all;
+		-webkit-transition: .5s all;
+		-o-transition: .5s all;
+		-moz-transition: .5s all;
+	}
+	.techdimelogo .content h1{
+		padding:0;
+		margin:0;
+		font-size:41px;
+		font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+</style>
+<script>
+	//var marginleft = parseInt($(".techdimelogo").css("margin-left"));
+	var margintop = parseInt($(".techdimelogo").css("margin-top"));
+	var active = 0;
+	function pulse(){
+		//var newmarginleft = marginleft - 75;
+		var newmargintop = margintop - 75;
+		$(".techdimelogo").css("height", "300px");
+		$(".techdimelogo").css("width", "300px");
+		//$(".techdimelogo").css("margin-left", newmarginleft);
+		$(".techdimelogo").css("margin-top", newmargintop);
+		$(".center").css("top", "130px");
+		$(".center").css("left", "130px");
+		$(".techdimelogo .tr").css("left", "240px");
+		$(".techdimelogo .br").css("left", "240px");
+		$(".techdimelogo .br").css("top", "240px");
+		$(".techdimelogo .bl").css("top", "240px");
+		window.setTimeout('$(".techdimelogo").css("height", "150px");', 100);
+		window.setTimeout('$(".techdimelogo").css("width", "150px");', 100);
+		//window.setTimeout('$(".techdimelogo").css("margin-left", marginleft);', 100);
+		window.setTimeout('$(".techdimelogo").css("margin-top", margintop);', 100);
+		window.setTimeout('$(".techdimelogo .tr").css("left", "90px");', 100);
+		window.setTimeout('$(".techdimelogo .br").css("left", "90px");', 100);
+		window.setTimeout('$(".techdimelogo .br").css("top", "90px");', 100);
+		window.setTimeout('$(".techdimelogo .bl").css("top", "90px");', 100);
+		window.setTimeout('$(".center").css("top", "55px");', 100);
+		window.setTimeout('$(".center").css("left", "55px");', 100);
+		window.setTimeout(function(){	
+			//var newmarginleft = marginleft - 75;
+			var newmargintop = margintop - 75;
+			$(".techdimelogo").css("height", "300px");
+			$(".techdimelogo").css("width", "300px");
+			//$(".techdimelogo").css("margin-left", newmarginleft);
+			$(".techdimelogo").css("margin-top", newmargintop);
+			$(".center").css("top", "130px");
+			$(".center").css("left", "130px");
+			$(".techdimelogo .tr").css("left", "240px");
+			$(".techdimelogo .br").css("left", "240px");
+			$(".techdimelogo .br").css("top", "240px");
+			$(".techdimelogo .bl").css("top", "240px");
+			window.setTimeout('$(".techdimelogo").css("height", "150px");', 100);
+			window.setTimeout('$(".techdimelogo").css("width", "150px");', 100);
+			//window.setTimeout('$(".techdimelogo").css("margin-left", marginleft);', 100);
+			window.setTimeout('$(".techdimelogo").css("margin-top", margintop);', 100);
+			window.setTimeout('$(".techdimelogo .tr").css("left", "90px");', 100);
+			window.setTimeout('$(".techdimelogo .br").css("left", "90px");', 100);
+			window.setTimeout('$(".techdimelogo .br").css("top", "90px");', 100);
+			window.setTimeout('$(".techdimelogo .bl").css("top", "90px");', 100);
+			window.setTimeout('$(".center").css("top", "55px");', 100);
+			window.setTimeout('$(".center").css("left", "55px");', 100);
+		}, 400);
+	}
+	$(document).ready(function(){
+		window.setInterval(function(){
+			if(active==0){
+				pulse();
+			}
+		}, 3000);
+	});
+	$(".techdimelogo .center").click(function(){
+		active = 1;
+		//var newmarginleft = marginleft - 75;
+		var newmargintop = margintop - 75;
+		$(".techdimelogo").css("height", "300px");
+		$(".techdimelogo").css("width", "300px");
+		//$(".techdimelogo").css("margin-left", newmarginleft);
+		$(".techdimelogo").css("margin-top", newmargintop);
+		$(".center").css("opacity", "0");
+		$(".center").css("top", "130px");
+		$(".center").css("left", "130px");
+		window.setTimeout('$(".center").css("display", "none");', 500);
+		$(".techdimelogo .tr").css("left", "240px");
+		$(".techdimelogo .br").css("left", "240px");
+		$(".techdimelogo .br").css("top", "240px");
+		$(".techdimelogo .bl").css("top", "240px");
+		$(".techdimelogo .content").css("display", "block");
+		$(".techdimelogo .content").css("height", "250px");
+		$(".techdimelogo .content").css("width", "250px");
+		window.setTimeout('$(".techdimelogo .content").css("opacity", "1");', 500);
+	});
+	$(".techdimelogo .content").click(function(){
+		window.setTimeout('$(".techdimelogo").css("height", "150px");', 500);
+		window.setTimeout('$(".techdimelogo").css("width", "150px");', 500);
+		//window.setTimeout('$(".techdimelogo").css("margin-left", marginleft);', 500);
+		window.setTimeout('$(".techdimelogo").css("margin-top", margintop);', 500);
+		window.setTimeout('$(".center").css("display", "block");', 500);
+		window.setTimeout('$(".center").css("top", "55px");', 500);
+		window.setTimeout('$(".center").css("left", "55px");', 500);
+		window.setTimeout('$(".center").css("opacity", "1");', 1000);
+		window.setTimeout('$(".techdimelogo .tr").css("left", "90px");', 500);
+		window.setTimeout('$(".techdimelogo .br").css("left", "90px");', 500);
+		window.setTimeout('$(".techdimelogo .br").css("top", "90px");', 500);
+		window.setTimeout('$(".techdimelogo .bl").css("top", "90px");', 500);
+		$(".techdimelogo .content").css("opacity", "0");
+		window.setTimeout('$(".techdimelogo .content").css("display", "none");', 500);
+		window.setTimeout('active = 0;', 1000);
+	});
+</script>

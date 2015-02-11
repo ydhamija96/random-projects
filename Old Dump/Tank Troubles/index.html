@@ -1,0 +1,520 @@
+<script src="http://25.213.28.50:8080/socket.io/socket.io.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+<script>
+	var winner = 0;
+	var positionx1 = -100;
+	var positiony1 = -100;
+	var positionx2 = -100;
+	var positiony2 = -100;
+	var temp = 0;
+	var a1 = 0, b1 = 0, c1 = 0, d1 = 0, e1 = 0, f1 = 0;
+	var a2 = 0, b2 = 0, c2 = 0, d2 = 0, e2 = 0, f2 = 0;
+	function collisionTest(a, b){
+		var aPos = a.offset();
+		var bPos = b.offset();
+		var aLeft = aPos.left;
+		var aRight = aPos.left + a.width();
+		var aTop = aPos.top;
+		var aBottom = aPos.top + a.height();
+    var bLeft = bPos.left;
+		var bRight = bPos.left + b.width();
+		var bTop = bPos.top;
+		var bBottom = bPos.top + b.height();
+		return !(bLeft > aRight || bRight < aLeft || bTop > aBottom || bBottom < aTop);
+	}
+	$("document").ready(function(){
+		var numWalls = $(".numberOfWalls").text();
+		var leftDown = 0;
+		var rightDown = 0;
+		var upDown = 0; 
+		var downDown = 0;  
+		var wDown = 0;
+		var dDown = 0;  
+		var sDown = 0;  
+		var aDown = 0;  
+		var socket = io.connect('http://25.213.28.50:8080'); 
+		socket.on('position', function(data){ 
+			$(".player").css("top", data.top); 
+			$(".player").css("left", data.left);  
+			$(".player").css({  
+				'-moz-transform':'rotate('+data.angle+'deg)',
+				'-webkit-transform':'rotate('+data.angle+'deg)',
+				'-o-transform':'rotate('+data.angle+'deg)',
+				'-ms-transform':'rotate('+data.angle+'deg)',
+				'transform': 'rotate('+data.angle+'deg)'
+			});
+		});
+		socket.on('position2', function(data){ 
+			$(".player2").css("top", data.top);
+			$(".player2").css("left", data.left);
+			$(".player2").css({
+				'-moz-transform':'rotate('+data.angle+'deg)',
+				'-webkit-transform':'rotate('+data.angle+'deg)',
+				'-o-transform':'rotate('+data.angle+'deg)',
+				'-ms-transform':'rotate('+data.angle+'deg)',
+				'transform': 'rotate('+data.angle+'deg)'
+			});
+		});
+		socket.on('bullet1loc', function(data){
+			$(".bullet1").css("top", data.top);
+			$(".bullet1").css("left", data.left);
+		});
+		socket.on('bullet2loc', function(data){
+			$(".bullet2").css("top", data.top);
+			$(".bullet2").css("left", data.left);
+		});
+		socket.on('bullet1hide', function(data){
+			$(".bullet1").css("top", '-100');
+			$(".bullet1").css("left", '-100');			
+		});
+		socket.on('bullet2hide', function(data){
+			$(".bullet2").css("top", '-100');
+			$(".bullet2").css("left", '-100');
+		});
+		function left(a){
+			if(a==1 && a1==0 && f1==0){
+	        		socket.emit('left');
+	        	}
+		}
+		function up(a){
+			if(a==1 && a1==0 && b1==0 && c1==0){
+	        		socket.emit('up');
+	        	}
+		}
+		function down(a){
+			if(a==1 && d1==0 && e1==0 && f1==0){
+	        		socket.emit('down');
+	        	}
+		}
+		function right(a){
+			if(a==1 && c1==0 && d1==0){
+	        		socket.emit('right');
+	        	}
+		}
+		function lefta(a){
+			if(a==1 && a2==0 && f2==0){
+	        		socket.emit('lefta');
+	        	}
+		}
+		function upw(a){
+			if(a==1 && a2==0 && b2==0 && c2==0){
+	        		socket.emit('upw');
+	        	}
+		}
+		function downs(a){
+			if(a==1 && d2==0 && e2==0 && f2==0){
+	        		socket.emit('downs');
+	        	}
+		}
+		function rightd(a){
+			if(a==1 && c2==0 && d2==0){
+	        		socket.emit('rightd');
+	        	}
+		}
+		document.onkeydown = function(e) {
+			var evt = e || window.event;
+			switch (evt.keyCode) {
+				case 37:
+					leftDown = 1; 
+					break;
+				case 38:
+					upDown = 1;
+					break;
+				case 39:
+					rightDown = 1;
+					break;
+				case 40:
+					downDown = 1;
+					break;
+				case 65:
+					aDown = 1;
+					break;
+				case 87:
+					wDown = 1;
+					break;
+				case 68:
+					dDown = 1;
+					break;
+				case 83:
+					sDown = 1;
+					break;
+				case 32:
+					socket.emit('fire1');
+					break;
+				case 16:
+					socket.emit('fire2');
+					break;
+			}
+		};
+		document.onkeyup = function(e) {
+			var evt = e || window.event;
+			switch (evt.keyCode) {
+				case 37:
+					leftDown = 0;  
+					break;
+				case 38:
+					upDown = 0;
+					break;
+				case 39:
+					rightDown = 0;
+					break;
+				case 40:
+					downDown = 0;
+					break;
+				case 65:
+					aDown = 0;
+					break;
+				case 87:
+					wDown = 0;
+					break;
+				case 68:
+					dDown = 0;
+					break;
+				case 83:
+					sDown = 0;
+					break;
+			}
+		};
+		function collision(){
+			a1=0;
+			b1=0;
+			c1=0;
+			d1=0;
+			e1=0;
+			f1=0;  
+			a2=0;
+			b2=0;
+			c2=0;
+			d2=0;
+			e2=0;
+			f2=0;
+			for(var i=1; i<=numWalls; i++){ 
+				var b = $(".wall"+i);
+				var a = $(".colbox1");
+				if(collisionTest(a, b)){	
+					var a = $(".colA");
+					if(collisionTest(a, b)){
+						a1 = 1;
+					}
+					a = $(".colB");
+					if(collisionTest(a, b)){
+						b1 = 1;
+					}
+					a = $(".colC");
+					if(collisionTest(a, b)){
+						c1 = 1;
+					}
+					a = $(".colD");
+					if(collisionTest(a, b)){
+						d1 = 1;
+					}
+					a = $(".colE");
+					if(collisionTest(a, b)){
+						e1 = 1;
+					}
+					a = $(".colF");
+					if(collisionTest(a, b)){
+						f1 = 1;
+					}
+				}
+				a = $(".colbox2");
+				if(collisionTest(a, b)){
+					a = $(".colA2");
+					if(collisionTest(a, b)){
+						a2 = 1;
+					}
+					a = $(".colB2");
+					if(collisionTest(a, b)){
+						b2 = 1;
+					}
+					a = $(".colC2");
+					if(collisionTest(a, b)){
+						c2 = 1;
+					}
+					a = $(".colD2");
+					if(collisionTest(a, b)){
+						d2 = 1;
+					}
+					a = $(".colE2");
+					if(collisionTest(a, b)){
+						e2 = 1;
+					}
+					a = $(".colF2");
+					if(collisionTest(a, b)){
+						f2 = 1;
+					}
+				}
+				a = $(".bullet2");
+				if(collisionTest(a, b)){
+					if(b.width() > b.height()){
+						if(Math.abs(positiony2 - a.css("top").replace("px", "")) > 20){
+							socket.emit("topflip2");
+							positiony2 = a.css("top").replace("px", "");
+							setTimeout(function(){positiony2=-100;}, 1000);
+						}						
+					}
+					if(b.width() < b.height()){
+						if(Math.abs(positionx2 - a.css("left").replace("px", "")) > 20){
+							socket.emit("leftflip2");
+							positionx2 = a.css("left").replace("px", "");
+							setTimeout(function(){positionx2=-100;}, 1000);
+						}						
+					}	
+				}
+				a = $(".bullet1");
+				if(collisionTest(a, b)){	
+					if(b.width() > b.height()){
+						if(Math.abs(positiony1 - a.css("top").replace("px", "")) > 20){
+							socket.emit("topflip1");
+							positiony1 = a.css("top").replace("px", "");
+							setTimeout(function(){positiony1=-100;}, 1000);
+						}						
+					}
+					if(b.width() < b.height()){
+						if(Math.abs(positionx1 - a.css("left").replace("px", "")) > 20){
+							socket.emit("leftflip1");
+							positionx1 = a.css("left").replace("px", "");
+							setTimeout(function(){positionx1=-100;}, 1000);
+						}						
+					}			
+				}
+			}
+			var c = $(".bullet1");
+			var d = $(".bullet2");
+			var e = $(".player");
+			var f = $(".player2");
+			if(collisionTest(c, e) || collisionTest(d, e)){
+				winner = 2;
+			}
+			if(collisionTest(c, f) || collisionTest(d, f)){
+				winner = 1;
+			}
+		}
+		setInterval(function(){left(leftDown)}, 25);
+		setInterval(function(){up(upDown)}, 25);
+		setInterval(function(){down(downDown)}, 25);
+		setInterval(function(){right(rightDown)}, 25);
+		setInterval(function(){lefta(aDown)}, 25); 
+		setInterval(function(){upw(wDown)}, 25);
+		setInterval(function(){downs(sDown)}, 25);
+		setInterval(function(){rightd(dDown)}, 25);
+		setInterval(function(){collision()}, 5);
+		setInterval(function(){
+			if(winner>0){
+				$(".bullet1").css('opacity', '0');
+				$(".bullet2").css('opacity', '0');
+				if(winner==1){
+					$(".player2").css('opacity', '0');
+				}
+				else{
+					$(".player").css('opacity', '0');
+				}
+				setTimeout(function(){
+					if(temp==0){
+						socket.emit('reset');
+						temp=1;
+					}
+					location.reload();
+				}, 1000);
+			}
+		}, 25);
+	});
+</script>
+<style>
+	.player, .player2{
+		border:2px solid black;
+		height:21px; 
+		width:30px; 
+		background:red; 
+		position:absolute; 
+		top:0; 
+		left:0;transform:rotate(0deg); 
+		-ms-transform:rotate(0deg); 
+		-webkit-transform:rotate(0deg);
+	}
+	.turretstick, .turretstick2{
+		height:3px;
+		width:6px;
+		background:red;
+		margin-top:7px;
+		margin-left:20px;
+		border: 2px solid black;
+	}
+	.turret, .turret2{
+		position:absolute;
+		border:2px solid black;
+		background:red;
+		height:9px;
+		width:14px;
+		margin-top:-10px;
+		margin-left:4px;
+	}
+	.colA, .colA2{
+		position:absolute;
+		width:7px;
+		height:5px;
+		margin-top:-16px;
+		margin-left:25px;
+	}
+	.colB, .colB2{
+		position:absolute;
+		width:12px;
+		height:23px;
+		margin-top:-15px;
+		margin-left:20px;
+	}
+	.colC, .colC2{
+		position:absolute;
+		width:7px;
+		height:5px;
+		margin-top:4px;
+		margin-left:25px;
+	}
+	.colD, .colD2{
+		position:absolute;
+		width:7px;
+		height:5px;
+		margin-top:-16px;
+		margin-left:-2px;
+	}
+	.colE, .colE2{
+		position:absolute;
+		width:10px;
+		height:23px;
+		margin-top:-15px;
+		margin-left:-2px;
+	}
+	.colF, .colF2{
+		position:absolute;
+		width:7px;
+		height:5px;
+		margin-top:4px;
+		margin-left:-2px;
+	}
+	.wall1{
+		position:absolute;
+		height:6px;
+		width:600px;
+		top:10px;
+		left:10px;
+		background:black;
+	}
+	.wall2{
+		position:absolute;
+		height:600px;
+		width:6px;
+		top:10px;
+		left:10px;
+		background:black;
+	}
+	.wall3{
+		position:absolute;
+		height:6px;
+		width:606px;
+		top:610px;
+		left:10px;
+		background:black;
+	}
+	.wall4{
+		position:absolute;
+		height:600px;
+		width:6px;
+		top:10px;
+		left:610px;
+		background:black;
+	}
+	.wall5{
+		position:absolute;
+		background:black;
+		height:6px;
+		width:240px;
+		left:76px;
+		top:400px;
+	}
+	.wall6{
+		position:absolute;
+		background:black;
+		height:200px;
+		width:6px;
+		left:310px;
+		top:200px;
+	}
+	.wall7{
+		position:absolute;
+		background:black;
+		height:6px;
+		top:200px;
+		width:240px;
+		left:310px;
+	}
+	.wall8{
+		position:absolute;
+		background:black;
+		height:6px;
+		width:240px;
+		top:200px;
+		left:76px;
+	}
+	.wall9{
+		position:absolute;
+		background:black;
+		height:6px;
+		width:240px;
+		top:400px;
+		left:310px;
+	}
+	.colbox1, .colbox2{
+		position:absolute;
+		height:70px;
+		width:70px;
+		margin-top:-40px;
+		margin-left:-20px
+	}
+	.bullet1, .bullet2{
+		height:8px;
+		width:8px;
+		background:black;
+		position:absolute;
+		-webkit-border-radius: 36000000px;
+		-moz-border-radius: 36000000px;
+		border-radius: 36000000px;
+		top:-100px;
+		left:-100px;
+		margin-top:10px;
+		margin-left:10px;
+	}
+</style>
+<div style="display:none;" class="numberOfWalls">9</div>
+<div class="wall1"></div>
+<div class="wall2"></div>
+<div class="wall3"></div>
+<div class="wall4"></div>
+<div class="wall5"></div>
+<div class="wall6"></div>
+<div class="wall7"></div>
+<div class="wall8"></div>
+<div class="wall9"></div>
+<div class="player">
+	<div class="turretstick"></div>
+	<div class="turret"></div>
+	<div class="colA"></div>
+	<div class="colB"></div>
+	<div class="colC"></div>
+	<div class="colD"></div>
+	<div class="colE"></div>
+	<div class="colF"></div>
+	<div class="colbox1"></div>
+</div>
+<div class="player2" style="background:blue;">
+	<div class="turretstick2" style="background:blue;"></div>
+	<div class="turret2" style="background:blue;"></div>
+	<div class="colA2"></div>
+	<div class="colB2"></div>
+	<div class="colC2"></div>
+	<div class="colD2"></div>
+	<div class="colE2"></div>
+	<div class="colF2"></div>
+	<div class="colbox2"></div>
+</div>
+<div class="bullet1"></div>
+<div class="bullet2"></div>

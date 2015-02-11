@@ -1,0 +1,63 @@
+<style>
+.circle{
+    background: rgb(255,255,255);
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -o-border-radius: 100%;
+    position: relative;
+    margin: 0 auto;
+    width: 30em; 
+    height: 30em;
+    overflow: hidden;
+}
+.circle h1 {
+    color: transparent;
+    font-weight: bold;
+    font-size: 1.8em;
+    line-height: 15em;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    transition: all .8s;
+    -webkit-transition: all .8s;
+    -moz-transition: all .8s;
+    -o-transition: all .8s;
+    -webkit-transform: rotate(0deg);
+}
+.circle:before, .circle:after {
+    border-radius: 100%;
+    content:"";
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: inherit; 
+    height: inherit;            
+    box-shadow: inset 22em 0 0 rgba(0, 0, 0, 0.1), 
+                inset 0 22em 0 rgba(0, 0, 0, 0.1), 
+                inset -22em 0 0 rgba(0, 0, 0, 0.1), 
+                inset 0 -22em 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.75s;
+}
+.circle:after  {
+    -webkit-transform: rotate(45deg);
+}
+.circle:hover:before, .circle:hover:after  {
+    box-shadow: inset 2em 0 0 rgba(255, 0, 0, 0.5), 
+                inset 0 2em 0 rgba(252, 150, 0, 0.5), 
+                inset -2em 0 0 rgba(0, 255, 0, 0.5), 
+                inset 0 -2em 0 rgba(0, 150, 255, 0.5);
+}
+.circle:hover:before{	
+    -webkit-transform: rotate(-400deg);
+}
+.circle:hover:after{	
+    -webkit-transform: rotate(-355deg);
+}
+.circle:hover > h1  {
+    color: darkgrey;
+    -webkit-transform: rotate(0deg);
+}
+</style>
+<div class="circle"><h1>This is a colorful circle.</h1></div>

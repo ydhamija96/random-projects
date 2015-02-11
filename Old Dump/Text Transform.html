@@ -1,0 +1,105 @@
+<div id="changingText">
+	<div id="before">
+		<p>Before</p>
+	</div>
+	<div id="after">
+		<p>After</p>
+	</div>
+	<div id="line"></div>
+</div>
+
+
+<style>
+
+#changingText{
+	position:absolute;
+	height:35px;
+	width:120px;
+	top:200px;
+	left:200px;
+}
+#changingText div{
+	overflow:hidden;
+}
+#changingText p{
+	position:absolute;
+	margin:0;
+	padding:0;
+	/* CHANGE TEXT CHARACTERISTICS */
+	font-size:30px;
+}
+#changingText #before{
+	position:absolute;
+	height:50px;
+	width:100%;
+}
+#changingText:hover #before{
+	-webkit-animation: beforeAnimate 5s;
+}
+#changingText #before p{
+	position:absolute;
+	height:50px;
+	width:100%;
+}
+#changingText:hover #before p{
+	-webkit-animation: beforeTextAnimate 5s;
+}
+#changingText #after{
+	position:absolute;
+	height:50px;
+	width:0px;
+}
+#changingText:hover #after{
+	-webkit-animation: afterAnimate 5s;
+}
+#changingText #line{
+	position:absolute;
+	height:100%;
+	width:5px;
+	background:transparent;
+}
+#changingText:hover #line{
+	-webkit-animation: lineAnimate 5s;
+}
+
+@-webkit-keyframes beforeAnimate {
+    from {
+    	width: 100%;
+    	left: 0%;
+    }
+    to {
+    	width: 0%;
+    	left: 100%;
+    }
+}
+@-webkit-keyframes beforeTextAnimate {
+    from {
+    	left:1%;
+    }
+    to {
+    	left: -120px;
+    }
+}
+@-webkit-keyframes afterAnimate {
+    from {
+    	width: 0%;
+    }
+    to {
+    	width: 100%;
+    }
+}
+@-webkit-keyframes lineAnimate {
+    0% {
+    	background:transparent;
+    	left: 0%;
+    }
+    50% {
+    	background:red;
+    }
+    100% {
+    	background:transparent;
+    	left: 100%;
+    }
+}
+
+</style>

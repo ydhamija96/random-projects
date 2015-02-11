@@ -1,0 +1,98 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$("#thebox").mouseleave(function(){
+			$("#thebox #before").attr("id", "toBeAfter");
+			$("#thebox #after").attr("id", "toBeBefore");
+			$("#thebox #toBeAfter").attr("id", "after");
+			$("#thebox #toBeBefore").attr("id", "before");
+		});
+	});
+</script>
+
+<div id="thebox">
+	<div id="before">
+		Lorem
+	</div>
+	<div id="after">
+		Ipsum
+	</div>
+</div>
+Keep the mouse on the box.
+
+<style>
+	body{
+		background:lightgrey;
+	}
+	#thebox{
+		position:absolute;
+		top:30%;
+		left:30%;
+		height:70px;
+		width:200px;
+		font-size:50px;
+		overflow:hidden;
+		border:5px solid black;
+		background:white;
+		text-align:center;
+	}
+	#before{
+		position:absolute;
+		top:0%;
+		height:100%;
+		width:100%;
+	}
+	#after{
+		position:absolute;	
+		top:-250%;
+		height:100%;
+		width:100%;
+	}
+	#thebox:hover #before{
+		-webkit-animation: bounceOut 1.25s ease-out;
+		-webkit-animation-fill-mode: forwards;
+	}
+	#thebox:hover #after{
+		-webkit-animation: bounceIn 1.25s ease-out;
+		-webkit-animation-fill-mode: forwards;
+		-webkit-animation-delay: .6s;
+	}
+	@-webkit-keyframes bounceOut{
+		0%{
+			top:0%;
+		}
+		20%{
+			top:-50%;
+		}
+		40%{
+			top:0%;
+		}
+		60%{
+			top:-100%;
+		}
+		100%{
+			top:-250%;
+		}
+	}
+	@-webkit-keyframes bounceIn{
+		0%{
+			top:-250%;
+		}
+		1%{
+			top:-100%;
+		}
+		20%{
+			top:0%;
+		}
+		40%{
+			top:-50%;
+		}
+		60%{
+			top:0%;
+		}
+		100%{
+			top:0%;
+		}
+	}
+</style>
