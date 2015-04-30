@@ -40,6 +40,16 @@
 		for(var i=0; i<num; i++){
 			var width = Math.floor(Math.random() * (((500-((r[0][2]+10)))-minwidth)+1)) + minwidth;
 			var left = Math.floor(Math.random() * (((500-width)-0)+1) + 0);
+            if((500-(left+width))<(r[0][2]+10)){
+				if(left<(r[0][2]+10)){
+					if(Math.random() < 0.5){
+						left = (r[0][2]+10);
+					}
+					else{
+						left = 0;
+					}
+				}
+			}
 			if(num-i>3){
 				r[i+1] = [left, ((i*space)-10), width, 10];
 			}
