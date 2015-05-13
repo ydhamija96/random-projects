@@ -1,6 +1,8 @@
-<canvas id="canvas" width="500px" height="500px"></canvas>
+<canvas id="canvas" width="500px" height="500px">Sorry, HTML5 is required for this.</canvas>
 <br>
 <button id="button" onclick="funcstart()">Start / Restart</button>
+<br />Use the arrow keys to avoid the black lines.
+<br />See if you can get a better score than 100.
 <style>
 	#canvas{
 		border:10px solid grey;
@@ -13,7 +15,7 @@
 	}
 </style>
 <script>
-	var start = 0;
+    var start = 0;
 	var score = 0;
 	var scoreInterval = 0;
 	var speed = 0;
@@ -34,6 +36,7 @@
 		playerspeed = speed*7;
 		verticalplayerspeed = speed*1.5;
 		generate();
+        touchInit();
 	}
 	function generate(){
 		r = [[238.5,450,20,20]];
@@ -190,6 +193,9 @@
 					r[0][1] = r[0][1]-2.5;	
 				}
 				score = score+1;
+                if(score>100){
+                    window.location.href="https://youtu.be/dQw4w9WgXcQ";
+                }
 			}
 		}
 		frame();

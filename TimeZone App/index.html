@@ -1,0 +1,38 @@
+<script type="text/javascript" src="timezones.js"></script>
+
+<script type="text/javascript">
+    function refresh() {
+        var content="...";
+        var currentTimezone = new Date().getTimezoneOffset();
+        currentTimezone = currentTimezone / 60;
+        var localTime = new Date().getHours();
+        var utcTime = localTime + currentTimezone;
+        
+        for(i = 0; i<timezones.length; i++) {
+            if(timezones[i].offset + utcTime == 7){
+                content = "Bro, you on "+timezones[i].value+".";
+                break;
+            }
+        }
+        
+        document.getElementById('display').innerHTML = content;
+    }
+</script>
+
+<style>
+    h1{
+        text-align:center;
+        font-size:50px;
+    }
+    button{
+        position:relative;
+        width:300px;
+        left:50%;
+        margin-left:-150px;
+        font-size:30px;
+    }
+</style>
+
+
+<h1 id="display">...</h1>
+<button id="refresh" onclick="refresh()">I just woke up!</button>
