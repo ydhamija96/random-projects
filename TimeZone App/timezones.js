@@ -7,7 +7,7 @@ var timezones = [
     "text": "(UTC-12:00) International Date Line West"
   },
   {
-    "value": "UTC-11",
+    "value": "Coordinated Universal Time",
     "abbr": "U",
     "offset": -11,
     "isdst": false,
