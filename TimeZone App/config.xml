@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+    <widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.nodomain.sleepawhere"
+        version   = "0.1.0">
+
+    <name>Sleep a'Where</name>
+
+    <description>
+        This app will tell you what timezone your sleep schedule matches up with.
+        Note: It is meant as a bit of fun, and is not rigorously correct.
+    </description>
+
+    <author>
+        Yogesh Dhamija 
+    </author>
+    
+    <preference name="permissions" value="none"/>
+    <preference name="orientation" value="default" /> 
+
+</widget>
