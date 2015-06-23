@@ -1,0 +1,152 @@
+<style>
+	#game{
+		border: 5px solid darkgrey;
+	}
+	#pause{
+		display:inline-block;
+	}
+</style>
+Use the up and down keys to move.
+Use the left key in conjunction to reduce your speed.<br /><br />
+<canvas id = "game" width="800" height="600">Sorry, HTML5 is required for this.</canvas><br /><br />
+<button id="start" onclick="start()">Start</button>
+<button id="reset" onclick ="reset()">Reset</button>
+<button id="pause" onclick="pauseOrResume()">Pause / Resume</button>
+<script>
+	var canvas = document.getElementById("game");
+	var finalScore = 0;
+	var speed = 2.2;
+	var canvasContext = canvas.getContext("2d");
+	var player = [10, canvas.height / 2 - 25, 50, 50];
+	canvasContext.fillStyle = "blue";
+	canvasContext.fillRect(player[0], player[1], player[2], player[3]);
+	var obstacle = [canvas.width, 0, 75, canvas.height];
+	canvasContext.fillStyle = "black";
+	canvasContext.fillRect(obstacle[0], obstacle[1], obstacle[2], obstacle[3]);
+	var safe = generateSafe();
+	canvasContext.fillStyle = "white";
+	canvasContext.fillRect(safe[0], safe[1], safe[2], safe[3]);
+	var interval;
+	var status = 0;
+	var up = 0;
+	var down = 0;
+	var left = 0;
+	var growfactor = Math.floor(Math.random() * (15))+3;
+	document.onkeydown = function(e){
+		var evt = e || window.event;
+		switch(evt.keyCode){
+			case 38: //up
+				up = 1;
+				break;
+			case 40: //down
+				down = 1;
+				break;
+			case 37: //left
+				left = 1;
+				break;
+		}
+	};
+	document.onkeyup = function(e){
+		var evt = e || window.event;
+		switch(evt.keyCode){
+			case 38: //up
+				up = 0;
+				break;
+			case 40: //down
+				down = 0;
+				break;
+			case 37: //left
+				left = 0;
+				break;
+		}
+	};
+	function clear(){
+		canvas.width = canvas.width;
+	}
+	function reset(){
+		document.getElementById('pause').style.display = 'inline-block';
+		clear();
+		speed = 2.2;
+		player = [10, canvas.height / 2 - 25, 50, 50];
+		obstacle = [canvas.width, 0, 75, canvas.height];
+		safe = generateSafe();
+		status = 0;
+		clearInterval(interval);
+		drawFrame();
+	}
+	function generateSafe(){
+		var top = Math.floor(Math.random() * (canvas.height - 74 - 5)) + 2;
+		return [canvas.width, top, 75, 75];
+	}
+	function start(){
+		reset();
+		interval = setInterval(function(){
+			if(finalScore == 0){
+				update();
+			}
+		}, 10);
+	}
+	function pauseOrResume(){
+		if (status == 0){
+			clearInterval(interval);
+			++status;
+		}
+		else{
+			status = 0;
+			interval = setInterval(function(){
+				if(finalScore == 0){
+					update();
+				}
+			}, 10);
+		}
+	}
+	function update(){
+		speed = speed + 0.0005;
+		obstacle[0] = obstacle[0] - speed;
+		safe[0] = safe[0] - speed - 1;
+		safe[2] = safe[2] + speed/growfactor + 2;
+		obstacle[2] = obstacle[2] + speed/growfactor;
+		if(obstacle[0] + obstacle[2] <= 0){
+			obstacle[0] = canvas.width;
+			safe = generateSafe();
+			obstacle[2] = 75;
+			safe[2] = 77;
+			growfactor = Math.floor(Math.random() * (15))+3;
+		}
+		if(up == 1 && player[1] > 0){
+			if(left == 0){
+				player[1] = player[1] - (speed+3);
+			}
+			else{
+				player[1] = player[1] - (speed/3);
+			}
+		}
+		if(down == 1 && player[1]+player[3] < canvas.height){
+			if(left == 0){
+				player[1] = player[1] + (speed+3);
+			}
+			else{
+				player[1] = player[1] + (speed/3);
+			}
+		}
+		drawFrame();
+		collisionTest();
+	}
+	function drawFrame(){
+		clear();
+		canvasContext.fillRect(obstacle[0], obstacle[1], obstacle[2], obstacle[3]);
+		canvasContext.fillStyle = "white";
+		canvasContext.fillRect(safe[0], safe[1], safe[2], safe[3]);
+		canvasContext.fillStyle = "blue";
+		canvasContext.fillRect(player[0], player[1], player[2], player[3]);
+		canvasContext.font = "20px Arial";
+		canvasContext.fillStyle = "red";
+		canvasContext.fillText(Math.floor(speed*10 - 22),5,25);
+	}
+	function collisionTest(){
+		if(player[0]+player[2] > obstacle[0] && player[0] < obstacle[0]+obstacle[2] &&(player[1] < safe[1] || player[1]+player[3] > safe[1]+safe[3])){
+			pauseOrResume();
+			document.getElementById('pause').style.display = 'none';
+		}
+	}
+</script>
