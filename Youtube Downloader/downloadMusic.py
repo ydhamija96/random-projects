@@ -41,9 +41,11 @@ def putInFile(string, path):
 
 def main():
     for channel in YOUTUBE_CHANNELS:
+        print "Channel: "+channel
         latest = getVideo(channel)
         count = 1
         while((not inFile(latest, RECORDS_PATH)) and (count<10)):
+            print "Getting Video: "+latest
             try:
                 downloadVideo(latest, DOWNLOAD_PATH, latest)
             except:
