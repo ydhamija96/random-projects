@@ -6,7 +6,7 @@ YOUTUBE_CHANNELS = [
     "UCM9KEEuzacwVlkt9JfJad7g"      # Chill Nation
 ]
 DOWNLOAD_PATH = "Downloads"
-API_KEY = "AIzaSyB45GFPA_urj_qb4EjSt-DwM0P_UGvbpJg"
+API_KEY = ""
 RECORDS_PATH = "alreadyDone.txt"
 
 import urllib, json, urllib2
