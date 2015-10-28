@@ -9,7 +9,7 @@ DOWNLOAD_PATH = "Downloads"
 API_KEY = ""
 RECORDS_PATH = "alreadyDone.txt"
 
-import urllib, json, urllib2
+import urllib, json, urllib2, os
 
 def getVideo(channel, last = 1):
     url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId="+channel+"&maxResults="+str(last)+"&order=date&key="+API_KEY
@@ -30,10 +30,10 @@ def inFile(string, path):
 def downloadVideo(vid, path, name):
     url = "http://youtubeinmp3.com/fetch/?video=http://www.youtube.com/watch?v="+vid
     outfile = urllib2.urlopen(url)
-    output = open(path+"\\"+name+".mp3", 'wb')
+    output = open(path+name+".mp3", 'wb')
     output.write(outfile.read())
     output.close
-    
+
 def putInFile(string, path):
     handle = open(path, 'a')
     handle.write("\n"+string)
@@ -44,10 +44,17 @@ def main():
         print "Channel: "+channel
         latest = getVideo(channel)
         count = 1
-        while((not inFile(latest, RECORDS_PATH)) and (count<10)):
+        while((not inFile(latest, RECORDS_PATH)) and (count<=10)):
             print "Getting Video: "+latest
             try:
-                downloadVideo(latest, DOWNLOAD_PATH, latest)
+                attempt = 1
+                size = 0
+                while(attempt <= 10 and size < 50000):
+                    downloadVideo(latest, DOWNLOAD_PATH, latest)
+                    size = os.path.getsize(DOWNLOAD_PATH+latest+".mp3")
+                if(size < 50000):
+                    os.remove(DOWNLOAD_PATH+latest+".mp3")
+                    raise ImportError("File download failed after 10 attempts.")
             except:
                 print "ERROR: Could not download video."
             else:
