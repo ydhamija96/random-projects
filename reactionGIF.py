@@ -4,8 +4,8 @@ import subprocess
 import sys
 from difflib import SequenceMatcher
 
-client_id = "e2d66c0fbd32315"
-client_secret = "0ff533a2e1d7957666ff8ff5dd21a849b3dde3dc"
+client_id = ""
+client_secret = ""
 
 client = ImgurClient(client_id, client_secret)
 
